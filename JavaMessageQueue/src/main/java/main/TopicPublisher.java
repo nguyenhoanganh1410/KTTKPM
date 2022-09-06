@@ -37,7 +37,7 @@ public static void main(String[] args) throws Exception{
 	ctx.lookup("dynamicTopics/thanthidet");
 	//tạo producer
 	MessageProducer producer = session.createProducer(destination);
-	Message msg=session.createTextMessage("xin chào người ẹp");
+	Message msg=session.createTextMessage("xin chào");
 	//gửi
 	producer.send(msg);
 	//shutdown connection

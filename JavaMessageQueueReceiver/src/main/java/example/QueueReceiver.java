@@ -15,6 +15,9 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.BasicConfigurator;
 
+import example.data.Person;
+
+
 public class QueueReceiver {
     public static void main(String[] args) throws Exception {
         //thiết lập môi trường cho JMS
@@ -46,11 +49,12 @@ public class QueueReceiver {
         //blocked-method for receiving message - sync
         //receiver.receive();
         //Cho receiver lắng nghe trên queue, chừng có message thì notify - async
-        System.out.println("Tý was listened on queue...");
+       
         receiver.setMessageListener(new MessageListener() {
             @Override
             //có message đến queue, phương thức này được thực thi
             public void onMessage(Message msg) {//msg là message nhận được
+            	 System.out.println("success...");
                 try {
                     if (msg instanceof TextMessage) {
                         TextMessage tm = (TextMessage) msg;
@@ -59,6 +63,8 @@ public class QueueReceiver {
                         msg.acknowledge();//gửi tín hiệu ack
                     } else if (msg instanceof ObjectMessage) {
                         ObjectMessage om = (ObjectMessage) msg;
+                       // Person xml = new example.helper.XMLConvert<String>(om).xml2Object(om);
+                        System.out.println(msg);
                         System.out.println(om);
                     }
                 //others message type....

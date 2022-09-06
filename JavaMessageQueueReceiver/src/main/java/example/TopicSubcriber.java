@@ -38,6 +38,7 @@ public class TopicSubcriber {
 		//tạo consumer
 		Destination destination=(Destination) ctx.lookup("dynamicTopics/thanthidet");
 		MessageConsumer receiver = session.createConsumer(destination);
+		 System.out.println("User 1 is listening on queue...");
 		//receiver.receive();//blocked method
 		//Cho receiver lắng nghe trên queue, chừng có message thì notify
 		receiver.setMessageListener(new MessageListener() {
@@ -45,14 +46,14 @@ public class TopicSubcriber {
 		//có message đến queue, phương thức này được thực thi
 		public void onMessage(Message msg) {//msg là message nhận được
 		try {
-		if(msg instanceof TextMessage){
-		TextMessage tm=(TextMessage)msg;
-		String txt=tm.getText();
-		System.out.println("XML= "+txt);
-		msg.acknowledge();//gửi tín hiệu ack
+			if(msg instanceof TextMessage){
+			TextMessage tm=(TextMessage)msg;
+			String txt=tm.getText();
+			System.out.println("Tin nhăn nhận được :  "+txt);
+			msg.acknowledge();//gửi tín hiệu ack
 		}
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		}
 		});
